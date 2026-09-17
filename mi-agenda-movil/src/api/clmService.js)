@@ -1,0 +1,47 @@
+import apiClient from './client';
+
+export const clmService = {
+  // --- EMPRESAS ---
+  async getEmpresas() {
+    const response = await apiClient.get('/empresas');
+    return response.data;
+  },
+
+  async createEmpresa(data) {
+    const response = await apiClient.post('/empresas', data);
+    return response.data;
+  },
+
+  // --- CONTRATOS ---
+  async getContratos() {
+    const response = await apiClient.get('/contratos');
+    return response.data;
+  },
+
+  async getContratosByEmpresa(idEmpresa) {
+    // Filtramos los contratos de una empresa específica
+    const all = await this.getContratos();
+    return all.filter(c => c.id_empresa === idEmpresa);
+  },
+
+  async createContrato(data) {
+    const response = await apiClient.post('/contratos', data);
+    return response.data;
+  },
+
+  // --- CLÁUSULAS ---
+  async getClausulas() {
+    const response = await apiClient.get('/clausulas');
+    return response.data;
+  },
+
+  async getClausulasByContrato(idContrato) {
+    const all = await this.getClausulas();
+    return all.filter(cl => cl.id_contrato === idContrato);
+  },
+
+  async createClausula(data) {
+    const response = await apiClient.post('/clausulas', data);
+    return response.data;
+  }
+};

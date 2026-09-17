@@ -1,0 +1,124 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "demo@agenda.com",
+      "password_hash": "$2a$10$kuZVSqU4ek3CLpZTu/owG.gm0JBavMCBAo.Ejc3qrG9UGuYRO7JA6",
+      "name": "Usuario Demo",
+      "created_at": "2026-08-10T18:19:18.501Z",
+      "updated_at": "2026-08-10T18:19:18.501Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "name": "Familia",
+      "color": "#EF4444",
+      "created_at": "2026-08-10T18:19:18.501Z",
+      "updated_at": "2026-08-10T18:19:18.501Z"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "name": "Trabajo",
+      "color": "#3B82F6",
+      "created_at": "2026-08-10T18:19:18.501Z",
+      "updated_at": "2026-08-10T18:19:18.501Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "first_name": "María",
+      "last_name": "García",
+      "company": null,
+      "email": "maria@email.com",
+      "address": "Av. Corrientes 1234, CABA",
+      "notes": "Hermana",
+      "photo_url": null,
+      "is_favorite": 1,
+      "created_at": "2026-08-10T18:19:18.501Z",
+      "updated_at": "2026-08-10T18:19:18.501Z"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "first_name": "Carlos",
+      "last_name": "López",
+      "company": "TechCorp SA",
+      "email": "carlos@techcorp.com",
+      "address": null,
+      "notes": "Compañero de trabajo",
+      "photo_url": null,
+      "is_favorite": 0,
+      "created_at": "2026-08-10T18:19:18.501Z",
+      "updated_at": "2026-08-10T18:19:18.501Z"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "first_name": "Ana",
+      "last_name": "Martínez",
+      "company": null,
+      "email": "ana.m@email.com",
+      "address": null,
+      "notes": null,
+      "photo_url": null,
+      "is_favorite": 1,
+      "created_at": "2026-08-10T18:19:18.502Z",
+      "updated_at": "2026-08-10T18:19:18.502Z"
+    }
+  ],
+  "phoneNumbers": [
+    {
+      "id": 1,
+      "contact_id": 1,
+      "type": "mobile",
+      "number": "+54 11 5555-1234",
+      "is_primary": 1
+    },
+    {
+      "id": 2,
+      "contact_id": 1,
+      "type": "home",
+      "number": "+54 11 4444-5678",
+      "is_primary": 0
+    },
+    {
+      "id": 3,
+      "contact_id": 2,
+      "type": "work",
+      "number": "+54 11 3333-9999",
+      "is_primary": 1
+    },
+    {
+      "id": 4,
+      "contact_id": 3,
+      "type": "mobile",
+      "number": "+54 9 11 6666-7777",
+      "is_primary": 1
+    }
+  ],
+  "contactGroups": [
+    {
+      "contact_id": 1,
+      "group_id": 1
+    },
+    {
+      "contact_id": 2,
+      "group_id": 2
+    },
+    {
+      "contact_id": 3,
+      "group_id": 1
+    }
+  ],
+  "counters": {
+    "users": 1,
+    "groups": 2,
+    "contacts": 3,
+    "phoneNumbers": 4
+  }
+}

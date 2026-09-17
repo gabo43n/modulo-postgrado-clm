@@ -1,0 +1,56 @@
+===============================================================================
+GUÍA DE INICIO RÁPIDO - PROYECTO CLM POSTGRADO
+===============================================================================
+
+Sigue estos pasos en orden para iniciar el sistema y verlo en tu celular.
+
+--------------------------------------------------------------------------------
+PASO 1: INICIAR EL BACKEND (Servidor de Datos)
+--------------------------------------------------------------------------------
+Abre una terminal (PowerShell) y ejecuta:
+
+cd "D:\diplomado\modulo 2\practico\modulo-postgrado\modulo-postgrado"
+npm start
+
+(Deja esta terminal abierta. El servidor debe decir que está corriendo en el puerto 3000)
+
+--------------------------------------------------------------------------------
+PASO 2: CONFIGURAR EL CELULAR (Vía Cable USB)
+--------------------------------------------------------------------------------
+1. Conecta el celular por USB.
+2. Asegúrate de tener activada la "Depuración USB" en las Opciones de Desarrollador.
+3. Abre OTRA terminal y ejecuta estos dos comandos para crear el puente de datos:
+adb devices
+adb reverse tcp:8081 tcp:8081
+adb reverse tcp:3000 tcp:3000
+
+(Esto hace que el celular encuentre la App y la Base de Datos a través del cable)
+
+--------------------------------------------------------------------------------
+PASO 3: INICIAR LA APP MÓVIL
+--------------------------------------------------------------------------------
+Abre una TERCERA terminal y ejecuta:
+
+cd "D:\diplomado\modulo 2\practico\modulo-postgrado\modulo-postgrado\mi-agenda-movil"
+npm start
+
+--------------------------------------------------------------------------------
+PASO 4: ACCEDER DESDE EL CELULAR
+--------------------------------------------------------------------------------
+1. Abre la aplicación "Expo Go" en tu Android.
+2. Escanea el código QR que aparece en la terminal.
+3. Si el QR falla, usa la opción "Enter URL manually" y escribe:
+   exp://localhost:8081
+
+--------------------------------------------------------------------------------
+SOLUCIÓN DE PROBLEMAS (Si no carga la App)
+--------------------------------------------------------------------------------
+Si el código QR no funciona, intenta iniciar la app en modo Túnel (internet):
+D:\diplomado\modulo 2\practico\modulo-postgrado\modulo-postgrado\mi-agenda-movil> npx expo start --tunnel
+
+1. Detén el proceso de la app (Ctrl+C).
+2. Ejecuta:
+   npx expo start --tunnel
+
+(Luego escanea el nuevo QR que generará el sistema)
+===============================================================================
