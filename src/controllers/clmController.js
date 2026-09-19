@@ -81,8 +81,11 @@ function manejarErrorPostgres(err, res, next) {
 
 async function createEmpresa(req, res, next) {
   try {
+    console.log('--- CREANDO EMPRESA ---');
+    console.log('Datos recibidos:', req.body);
     res.status(201).json(await clmService.createEmpresa(req.body));
   } catch (err) {
+    console.error('Error al crear empresa:', err);
     manejarErrorPostgres(err, res, next);
   }
 }

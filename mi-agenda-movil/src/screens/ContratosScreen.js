@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import { clmService } from '../api/clmService';
 
@@ -18,9 +19,11 @@ export default function ContratosScreen({ route, navigation }) {
     }
   }
 
-  useEffect(() => {
-    load();
-  }, [empresa.id_empresa]);
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [empresa.id_empresa])
+  );
 
   const handleDelete = (id) => {
     Alert.alert(

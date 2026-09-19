@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { clmService } from '../api/clmService';
 
 export default function CLMHomeScreen({ navigation }) {
@@ -14,9 +15,11 @@ export default function CLMHomeScreen({ navigation }) {
     setLoading(false);
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [])
+  );
 
   const handleDelete = (id) => {
     Alert.alert(

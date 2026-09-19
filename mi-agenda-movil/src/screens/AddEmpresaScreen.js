@@ -14,9 +14,9 @@ export default function AddEmpresaScreen({ navigation }) {
 
     setLoading(true);
     try {
-      await clmService.createEmpresa(form);
+      const newEmpresa = await clmService.createEmpresa(form);
       Alert.alert('Éxito', 'Empresa creada correctamente');
-      navigation.goBack();
+      navigation.navigate('Contratos', { empresa: newEmpresa });
     } catch (e) {
       console.error(e);
       Alert.alert('Error', 'No se pudo crear la empresa. Verifica los datos.');

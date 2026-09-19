@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, ScrollView, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { clmService } from '../api/clmService';
 
 export default function AddContratoScreen({ route, navigation }) {
@@ -15,6 +16,36 @@ export default function AddContratoScreen({ route, navigation }) {
     moneda: 'BOB'
   });
   const [loading, setLoading] = useState(false);
+  const [showStartPicker, setShowStartPicker] = useState(false);
+  const [showEndPicker, setShowEndPicker] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const formatDate = (date) => {
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formatted = `${year}-${month}-${day}`;
+    console.log('Fecha formateada:', formatted);
+    return formatted;
+  };
+
+  const onStartDateChange = (event, selectedDate) => {
+    setShowStartPicker(false);
+    if (selectedDate) {
+      setStartDate(selectedDate);
+      setForm({ ...form, fecha_inicio_vigencia: formatDate(selectedDate) });
+    }
+  };
+
+  const onEndDateChange = (event, selectedDate) => {
+    setShowEndPicker(false);
+    if (selectedDate) {
+      setEndDate(selectedDate);
+      setForm({ ...form, fecha_fin_vigencia: formatDate(selectedDate) });
+    }
+  };
 
   const handleSave = async () => {
     if (!form.titulo || !form.contraparte_nombre) {
@@ -28,9 +59,9 @@ export default function AddContratoScreen({ route, navigation }) {
         ...form,
         valor_contrato: form.valor_contrato ? parseFloat(form.valor_contrato) : null
       };
-      await clmService.createContrato(data);
+      const newContrato = await clmService.createContrato(data);
       Alert.alert('Éxito', 'Contrato creado correctamente');
-      navigation.goBack();
+      navigation.navigate('Clausulas', { contrato: newContrato });
     } catch (e) {
       console.error(e);
       Alert.alert('Error', 'No se pudo crear el contrato. Verifica que las fechas sean correctas (AAAA-MM-DD).');
@@ -70,21 +101,41 @@ export default function AddContratoScreen({ route, navigation }) {
           <View style={styles.row}>
             <View style={{flex: 1, marginRight: 10}}>
               <Text style={styles.label}>Fecha Inicio</Text>
-              <TextInput
+              <TouchableOpacity
                 style={styles.input}
-                value={form.fecha_inicio_vigencia}
-                onChangeText={(t) => setForm({...form, fecha_inicio_vigencia: t})}
-                placeholder="AAAA-MM-DD"
-              />
+                onPress={() => setShowStartPicker(true)}
+              >
+                <Text style={{color: form.fecha_inicio_vigencia ? '#333' : '#aaa'}}>
+                  {form.fecha_inicio_vigencia || 'Seleccionar fecha'}
+                </Text>
+              </TouchableOpacity>
+              {showStartPicker && (
+                <DateTimePicker
+                  value={startDate}
+                  mode="date"
+                  display="default"
+                  onChange={onStartDateChange}
+                />
+              )}
             </View>
             <View style={{flex: 1}}>
               <Text style={styles.label}>Fecha Fin</Text>
-              <TextInput
+              <TouchableOpacity
                 style={styles.input}
-                value={form.fecha_fin_vigencia}
-                onChangeText={(t) => setForm({...form, fecha_fin_vigencia: t})}
-                placeholder="AAAA-MM-DD"
-              />
+                onPress={() => setShowEndPicker(true)}
+              >
+                <Text style={{color: form.fecha_fin_vigencia ? '#333' : '#aaa'}}>
+                  {form.fecha_fin_vigencia || 'Seleccionar fecha'}
+                </Text>
+              </TouchableOpacity>
+              {showEndPicker && (
+                <DateTimePicker
+                  value={endDate}
+                  mode="date"
+                  display="default"
+                  onChange={onEndDateChange}
+                />
+              )}
             </View>
           </View>
 

@@ -25,7 +25,7 @@ export default function AddClausulaScreen({ route, navigation }) {
       const data = { ...form, orden: parseInt(form.orden) };
       await clmService.createClausula(data);
       Alert.alert('Éxito', 'Cláusula creada correctamente');
-      navigation.goBack();
+      navigation.navigate('Clausulas', { contrato: contrato });
     } catch (e) {
       console.error(e);
       Alert.alert('Error', 'No se pudo crear la cláusula.');
